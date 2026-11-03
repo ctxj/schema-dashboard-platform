@@ -1,0 +1,13 @@
+{
+  "name": "schema-dashboard-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.ts",
+    "build": "tsc && cp index.html styles.css dist/"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}

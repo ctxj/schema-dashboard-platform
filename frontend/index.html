@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schema-Driven Dashboard Platform</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Schema-Driven Dashboard Platform</h1>
+    <nav>
+      <button data-tab="schemas" class="active">1. Schemas</button>
+      <button data-tab="data">2. Data</button>
+      <button data-tab="dashboards">3. Dashboards</button>
+      <button data-tab="view">4. Dashboard view</button>
+    </nav>
+  </header>
+
+  <main>
+    <section data-panel="schemas">
+      <h2>Register a schema</h2>
+      <p><label>Schema name <input id="schema-name" value="trade"></label></p>
+
+      <h3>Fields</h3>
+      <div id="field-rows"></div>
+      <button id="field-add" class="secondary">+ Add field</button>
+
+      <h3>Schema JSON</h3>
+      <p class="hint">Updates automatically from the form — you can also edit the JSON directly; the form follows.</p>
+      <textarea id="schema-json" rows="14"></textarea>
+      <button id="schema-submit">Register schema</button>
+      <div id="schema-result"></div>
+
+      <h2>Registered schemas</h2>
+      <div id="schema-list"></div>
+    </section>
+
+    <section data-panel="data" hidden>
+      <h2>Schema</h2>
+      <p><label>Choose schema <span id="data-schema-picker"></span></label></p>
+      <div id="data-schema-fields"></div>
+
+      <h2>Add a row</h2>
+      <div id="row-form"></div>
+      <button id="row-add">Add row</button>
+      <div id="row-errors"></div>
+
+      <h2>Rows to ingest</h2>
+      <div id="pending-rows"></div>
+      <p><label>Batch id <input id="ingest-batch" value="b-001"></label></p>
+      <button id="ingest-submit">Ingest rows</button>
+      <div id="ingest-result"></div>
+    </section>
+
+    <section data-panel="dashboards" hidden>
+      <h2>Register a dashboard configuration</h2>
+      <p><label>Validate against schema <span id="dash-schema-picker"></span></label></p>
+      <div id="dash-schema-fields"></div>
+      <p class="hint">The config is checked against the selected schema before registering — problems are listed explicitly.</p>
+      <textarea id="dashboard-json" rows="16">{
+  "name": "trade-dashboard",
+  "schema": "trade",
+  "views": [
+    {"type": "summary", "field": "amount", "aggregation": "sum"},
+    {"type": "table", "columns": ["tradeId", "amount", "status"]}
+  ]
+}</textarea>
+      <button id="dashboard-submit">Register dashboard</button>
+      <div id="dashboard-result"></div>
+    </section>
+
+    <section data-panel="view" hidden>
+      <h2>View dashboard data</h2>
+      <p>
+        <label>Dashboard <span id="view-picker"></span></label>
+        <button id="view-load">Load</button>
+        <button id="view-refresh" class="secondary">Refresh list</button>
+      </p>
+      <div id="view-result"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
